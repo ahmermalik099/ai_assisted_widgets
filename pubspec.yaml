@@ -1,6 +1,6 @@
 name: ai_assisted_widgets
 description: "This package help you to create Text widgets with AI assistance."
-version: 1.0.2-beta
+version: 1.0.3-beta
 homepage: https://github.com/ahmermalik099/ai_assisted_widgets
 
 environment:

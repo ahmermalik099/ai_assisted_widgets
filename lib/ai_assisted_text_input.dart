@@ -39,7 +39,7 @@ class _AIAssistedTextInputState extends State<AIAssistedTextInput> {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'model': 'text-davinci-003',   // Ensure you're specifying the correct model
+          'model': 'gpt-3.5-turbo-instruct',   // Ensure you're specifying the correct model
           'prompt': input,               // Send user input to the AI model
           'max_tokens': 50,              // Customize token limit based on needs
           'temperature': 0.7,            // Adjust creativity level
