@@ -31,26 +31,37 @@ class _AIAssistedTextInputState extends State<AIAssistedTextInput> {
       _isLoading = true;
     });
 
-    final response = await http.post(
-      Uri.parse(widget.apiUrl),
-      headers: {
-        'Authorization': 'Bearer ${widget.apiKey}',  // API key for security
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'prompt': input,      // Send user input to the AI model
-        'max_tokens': 10,     // Customize token limit based on needs
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(widget.apiUrl),
+        headers: {
+          'Authorization': 'Bearer ${widget.apiKey}',  // API key for security
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'model': 'text-davinci-003',   // Ensure you're specifying the correct model
+          'prompt': input,               // Send user input to the AI model
+          'max_tokens': 50,              // Customize token limit based on needs
+          'temperature': 0.7,            // Adjust creativity level
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          _suggestion = data['choices'][0]['text'].trim();
+        });
+      } else {
+        print('Failed to get response: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        setState(() {
+          _suggestion = 'No suggestions available';
+        });
+      }
+    } catch (e) {
+      print('Error occurred: $e');
       setState(() {
-        _suggestion = data['choices'][0]['text'].trim();
-      });
-    } else {
-      setState(() {
-        _suggestion = 'No suggestions available';
+        _suggestion = 'Error fetching suggestion';
       });
     }
 
