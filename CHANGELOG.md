@@ -1,3 +1,3 @@
-## 0.0.1
+## 1.0.0-beta
 
-* TODO: Describe initial release.
+AI assisted widget for Flutter that makes it easier to create and customize widgets.
